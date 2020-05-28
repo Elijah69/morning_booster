@@ -41,8 +41,8 @@ class TimerActivity : AppCompatActivity() {
             object : CountDownTimer(timers.first().minutes, 1000) {
                 override fun onTick(millisUntilFinished: Long) {
                     timerBinding.timerTitle.text = timers.first().name
-                    val text = getString(R.string.timer, remainingMinutes(millisUntilFinished), remainingSeconds(millisUntilFinished))
-                    timerBinding.timer.text = text
+                    timerBinding.timer.text = getString(R.string.timer, remainingMinutes(millisUntilFinished),
+                        remainingSeconds(millisUntilFinished))
                 }
 
                 override fun onFinish() {
