@@ -11,4 +11,5 @@
     <string name="go_to_settings_btn_lbl">Custumize my morning</string>
     <string name="save_settings_button_lable">Save settings</string>
     <string name="timer_view_label">Boosting your Morning</string>
+    <string name="timer">Remaining: %1$d : %2$d</string>
 </resources>
