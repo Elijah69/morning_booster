@@ -2,6 +2,7 @@ package com.lifebestpractices.morningbooster
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.lifebestpractices.morningbooster.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_timer.*
@@ -29,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val mainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mainBinding.root)
+
         val firstTimer = PractiseTimer("affirmation", 2)
         firstTimer.setNewTime(1)
         val secondTimer = PractiseTimer("visualization", 3)
@@ -46,8 +48,53 @@ class MainActivity : AppCompatActivity() {
         timers.sortBy {
             it.position
         }
+
         setTimersView(mainBinding, timers)
 
+        setSwitchesLogic(mainBinding, timers)
+
+        setBoostButtonLogic(mainBinding, timers)
+
+        setSettingsButtonLogic(mainBinding)
+    }
+
+    private fun setSettingsButtonLogic(mainBinding: ActivityMainBinding) {
+        mainBinding.openSettingsButton.setOnClickListener {
+            val intent = Intent(this, SettingsActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    private fun setBoostButtonLogic(
+        mainBinding: ActivityMainBinding,
+        timers: MutableList<PractiseTimer>
+    ) {
+        mainBinding.boostButton.setOnClickListener {
+            val totalTime = countTotalTime(timers)
+            if (totalTime > 0) {
+                val intent = Intent(this, TimerActivity::class.java).apply {
+                    putExtra(INTENT_PARAM_KEY_FIRST_TIMER, timers[0])
+                    putExtra(INTENT_PARAM_KEY_SECOND_TIMER, timers[1])
+                    putExtra(INTENT_PARAM_KEY_THIRD_TIMER, timers[2])
+                    putExtra(INTENT_PARAM_KEY_FOURTH_TIMER, timers[3])
+                    putExtra(INTENT_PARAM_KEY_FIFTH_TIMER, timers[4])
+                    putExtra(INTENT_PARAM_KEY_SIXTH_TIMER, timers[5])
+                }
+                startActivity(intent)
+            } else {
+                Toast.makeText(
+                    this,
+                    "You have nothing to do, please, chose some practice element",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
+    }
+
+    private fun setSwitchesLogic(
+        mainBinding: ActivityMainBinding,
+        timers: MutableList<PractiseTimer>
+    ) {
         mainBinding.firstTimerSwitch.setOnCheckedChangeListener { _, isChecked ->
             timers[0].enabled = isChecked
             setTotalTime(timers, mainBinding)
@@ -77,23 +124,14 @@ class MainActivity : AppCompatActivity() {
             timers[5].enabled = isChecked
             setTotalTime(timers, mainBinding)
         }
+    }
 
-        mainBinding.boostButton.setOnClickListener {
-            val intent = Intent(this, TimerActivity::class.java).apply {
-                putExtra(INTENT_PARAM_KEY_FIRST_TIMER, firstTimer)
-                putExtra(INTENT_PARAM_KEY_SECOND_TIMER, secondTimer)
-                putExtra(INTENT_PARAM_KEY_THIRD_TIMER, thirdTimer)
-                putExtra(INTENT_PARAM_KEY_FOURTH_TIMER, fourthTimer)
-                putExtra(INTENT_PARAM_KEY_FIFTH_TIMER, fifthTimer)
-                putExtra(INTENT_PARAM_KEY_SIXTH_TIMER, sixthTimer)
-            }
-            startActivity(intent)
+    private fun countTotalTime(timers: MutableList<PractiseTimer>) : Int {
+        var totalTime = 0
+        timers.forEach {
+            if (it.enabled) totalTime += (it.minutes / 60000).toInt()
         }
-
-        mainBinding.openSettingsButton.setOnClickListener {
-            val intent = Intent(this, SettingsActivity::class.java)
-            startActivity(intent)
-        }
+        return totalTime
     }
 
     private fun setTimersView(
@@ -114,10 +152,7 @@ class MainActivity : AppCompatActivity() {
         timers: MutableList<PractiseTimer>,
         mainBinding: ActivityMainBinding
     ) {
-        var totalTime = 0
-        timers.forEach {
-            if (it.enabled) totalTime += (it.minutes / 60000).toInt()
-        }
+        val totalTime = countTotalTime(timers)
         mainBinding.totalTimeTimer.text = resources.getQuantityString(
             R.plurals.minutes,
             totalTime, totalTime
