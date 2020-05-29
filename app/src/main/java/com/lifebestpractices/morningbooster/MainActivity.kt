@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.lifebestpractices.morningbooster.databinding.ActivityMainBinding
-import kotlinx.android.synthetic.main.activity_timer.*
 import java.io.Serializable
 
 const val TAG = "MBD"

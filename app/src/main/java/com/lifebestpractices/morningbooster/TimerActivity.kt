@@ -8,12 +8,19 @@ import com.lifebestpractices.morningbooster.databinding.ActivityTimerBinding
 
 class TimerActivity : AppCompatActivity() {
 
+    var activityPaused = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val timerBinding = ActivityTimerBinding.inflate(layoutInflater)
         setContentView(timerBinding.root)
         val timers: MutableList<PractiseTimer> = getAndPrepareTimers()
         startTimers(timers, timerBinding)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        activityPaused = true
     }
 
     private fun getAndPrepareTimers(): MutableList<PractiseTimer> {
@@ -36,7 +43,7 @@ class TimerActivity : AppCompatActivity() {
     }
 
     private fun startTimers(timers: MutableList<PractiseTimer>, timerBinding: ActivityTimerBinding) {
-        if (timers.isNotEmpty()) {
+        if (timers.isNotEmpty() and !activityPaused) {
             Log.d(TAG, "Start ${timers.first().name} timer")
             object : CountDownTimer(timers.first().minutes, 1000) {
                 override fun onTick(millisUntilFinished: Long) {
@@ -50,6 +57,8 @@ class TimerActivity : AppCompatActivity() {
                     startTimers(timers, timerBinding)
                 }
             }.start()
+        } else if(activityPaused){
+            Log.d(TAG, "Escaped activity before timers ends")
         } else {
             timerBinding.timerTitle.text = "Done"
             timerBinding.timer.text = ""
