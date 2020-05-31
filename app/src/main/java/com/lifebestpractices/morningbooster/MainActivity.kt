@@ -2,9 +2,12 @@ package com.lifebestpractices.morningbooster
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.room.*
 import com.lifebestpractices.morningbooster.databinding.ActivityMainBinding
+import kotlinx.android.synthetic.main.activity_timer.*
 import java.io.Serializable
 
 const val TAG = "MBD"
@@ -15,13 +18,29 @@ const val INTENT_PARAM_KEY_FOURTH_TIMER = "4 timer"
 const val INTENT_PARAM_KEY_FIFTH_TIMER = "5 timer"
 const val INTENT_PARAM_KEY_SIXTH_TIMER = "6 timer"
 
-class PractiseTimer constructor(val name: String, var position : Int) : Serializable{
+@Entity(indices = [Index(value = ["name", "position"], unique = true)], tableName = "timers")
+data class PractiseTimer constructor(@PrimaryKey val name: String, var position : Int) : Serializable{
     var minutes : Long = 60000
     var enabled : Boolean = true
     fun setNewTime(newMinutes : Int){
         minutes = (newMinutes * 60000).toLong()
     }
 }
+
+@Dao
+interface PracticeTimerDao {
+    @Query("SELECT * FROM timers")
+    suspend fun getAll() : MutableList<PractiseTimer>
+
+    @Insert
+    suspend fun insertAll(vararg practiceTimers: PractiseTimer)
+}
+
+@Database(entities = [PractiseTimer::class], version = 1)
+abstract class MorningBoosterDatabase : RoomDatabase() {
+    abstract fun practiceTimerDao() : PracticeTimerDao
+}
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -59,8 +78,17 @@ class MainActivity : AppCompatActivity() {
 
     private fun setSettingsButtonLogic(mainBinding: ActivityMainBinding) {
         mainBinding.openSettingsButton.setOnClickListener {
-            val intent = Intent(this, SettingsActivity::class.java)
-            startActivity(intent)
+            /*val intent = Intent(this, SettingsActivity::class.java)
+            startActivity(intent)*/
+            val db = Room.databaseBuilder(this, MorningBoosterDatabase::class.java, "morning-booster").build()
+
+            /*val timers2 = db.practiceTimerDao().getAll()
+            var countEl = 0
+            timers2.forEach{
+                countEl ++
+                Log.d(TAG, "$countEl")
+                Log.d(TAG, "print ${it.name}")
+            }*/
         }
     }
 
