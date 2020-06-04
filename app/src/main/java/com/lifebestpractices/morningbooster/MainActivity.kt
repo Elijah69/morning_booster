@@ -7,7 +7,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.room.*
 import com.lifebestpractices.morningbooster.databinding.ActivityMainBinding
-import kotlinx.android.synthetic.main.activity_timer.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.Serializable
 
 const val TAG = "MBD"
@@ -18,7 +21,8 @@ const val INTENT_PARAM_KEY_FOURTH_TIMER = "4 timer"
 const val INTENT_PARAM_KEY_FIFTH_TIMER = "5 timer"
 const val INTENT_PARAM_KEY_SIXTH_TIMER = "6 timer"
 
-@Entity(indices = [Index(value = ["name", "position"], unique = true)], tableName = "timers")
+
+@Entity(indices = [Index(value = ["name"], unique = true)], tableName = "timers") //TODO Make a ViewModel
 data class PractiseTimer constructor(@PrimaryKey val name: String, var position : Int) : Serializable{
     var minutes : Long = 60000
     var enabled : Boolean = true
@@ -29,10 +33,14 @@ data class PractiseTimer constructor(@PrimaryKey val name: String, var position 
 
 @Dao
 interface PracticeTimerDao {
+
     @Query("SELECT * FROM timers")
     suspend fun getAll() : MutableList<PractiseTimer>
 
-    @Insert
+    @Update
+    suspend fun updateTimers(vararg timers: PractiseTimer)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(vararg practiceTimers: PractiseTimer)
 }
 
@@ -49,46 +57,68 @@ class MainActivity : AppCompatActivity() {
         val mainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mainBinding.root)
 
-        val firstTimer = PractiseTimer("affirmation", 2)
-        firstTimer.setNewTime(1)
-        val secondTimer = PractiseTimer("visualization", 3)
-        secondTimer.setNewTime(1)
-        val thirdTimer = PractiseTimer("physical", 1)
-        thirdTimer.setNewTime(1)
-        thirdTimer.enabled = false
-        val fourthTimer = PractiseTimer("reading", 4)
-        fourthTimer.setNewTime(1)
-        val fifthTimer = PractiseTimer("silence", 5)
-        fifthTimer.setNewTime(1)
-        val sixthTimer = PractiseTimer("diary", 6)
-        sixthTimer.setNewTime(1)
-        val timers: MutableList<PractiseTimer> = mutableListOf(firstTimer, secondTimer, thirdTimer, fourthTimer, fifthTimer, sixthTimer)
-        timers.sortBy {
-            it.position
+        val db = Room.databaseBuilder(this, MorningBoosterDatabase::class.java, "morning-booster")
+            .build()
+        GlobalScope.launch(Dispatchers.Main) {
+            var timers = mutableListOf<PractiseTimer>()
+            withContext(Dispatchers.IO) {
+                timers = db.practiceTimerDao().getAll()
+            }
+            Log.d(TAG, "Getting timers from db job completed")
+                if (timers.size != 0) {
+                    Log.d(TAG, "The information upload completed")
+                    timers.sortBy { it.position }
+                    setTimersView(mainBinding, timers)
+                } else {
+                    Log.d(TAG, "The timers db is empty, initializing default timers")
+                    timers = initializeDefaultTimers(timers)
+                    setTimersView(mainBinding, timers)
+                    withContext(Dispatchers.IO) {
+                        db.practiceTimerDao().insertAll(
+                            timers[0],
+                            timers[1],
+                            timers[2],
+                            timers[3],
+                            timers[4],
+                            timers[5]
+                        )
+                    }
+                    Log.d(TAG, "The information inserted in db")
+                }
+
+            setTimersView(mainBinding, timers)
+
+            setSwitchesLogic(mainBinding, timers)
+
+            setBoostButtonLogic(mainBinding, timers)
+
+            setSettingsButtonLogic(mainBinding)
         }
+    }
 
-        setTimersView(mainBinding, timers)
-
-        setSwitchesLogic(mainBinding, timers)
-
-        setBoostButtonLogic(mainBinding, timers)
-
-        setSettingsButtonLogic(mainBinding)
+    private fun initializeDefaultTimers(timers: MutableList<PractiseTimer>): MutableList<PractiseTimer> {
+        var timers1 = timers
+        val firstTimer = PractiseTimer("affirmation", 1)
+        val secondTimer = PractiseTimer("visualization", 2)
+        val thirdTimer = PractiseTimer("physical", 3)
+        val fourthTimer = PractiseTimer("reading", 4)
+        val fifthTimer = PractiseTimer("silence", 5)
+        val sixthTimer = PractiseTimer("diary", 6)
+        timers1 = mutableListOf(
+            firstTimer,
+            secondTimer,
+            thirdTimer,
+            fourthTimer,
+            fifthTimer,
+            sixthTimer
+        )
+        return timers1
     }
 
     private fun setSettingsButtonLogic(mainBinding: ActivityMainBinding) {
         mainBinding.openSettingsButton.setOnClickListener {
-            /*val intent = Intent(this, SettingsActivity::class.java)
-            startActivity(intent)*/
-            val db = Room.databaseBuilder(this, MorningBoosterDatabase::class.java, "morning-booster").build()
-
-            /*val timers2 = db.practiceTimerDao().getAll()
-            var countEl = 0
-            timers2.forEach{
-                countEl ++
-                Log.d(TAG, "$countEl")
-                Log.d(TAG, "print ${it.name}")
-            }*/
+            val intent = Intent(this, SettingsActivity::class.java)
+            startActivity(intent)
         }
     }
 

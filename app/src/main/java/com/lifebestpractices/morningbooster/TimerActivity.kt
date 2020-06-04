@@ -15,7 +15,7 @@ class TimerActivity : AppCompatActivity() {
         val timerBinding = ActivityTimerBinding.inflate(layoutInflater)
         setContentView(timerBinding.root)
         val timers: MutableList<PractiseTimer> = getAndPrepareTimers()
-        startTimers(timers, timerBinding)
+        startTimers(timers, timerBinding) //TODO Remove start timers logic from onCreate method to solve the problem of restarting timers after screen rotation
     }
 
     override fun onPause() {
