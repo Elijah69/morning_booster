@@ -36,13 +36,10 @@ class TimerActivity : AppCompatActivity() {
         timers.removeAll {
             !it.enabled
         }
-        timers.sortBy {
-            it.position
-        }
         return timers
     }
 
-    private fun startTimers(timers: MutableList<PractiseTimer>, timerBinding: ActivityTimerBinding) {
+    private fun startTimers(timers: MutableList<PractiseTimer>, timerBinding: ActivityTimerBinding) { //TODO convert to async by coroutines for more agile usage
         if (timers.isNotEmpty() and !activityPaused) {
             Log.d(TAG, "Start ${timers.first().name} timer")
             object : CountDownTimer(timers.first().minutes, 1000) {

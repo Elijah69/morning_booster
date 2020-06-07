@@ -20,6 +20,7 @@ const val INTENT_PARAM_KEY_THIRD_TIMER = "3 timer"
 const val INTENT_PARAM_KEY_FOURTH_TIMER = "4 timer"
 const val INTENT_PARAM_KEY_FIFTH_TIMER = "5 timer"
 const val INTENT_PARAM_KEY_SIXTH_TIMER = "6 timer"
+const val TIMERS_DB_NAME = "morning-booster"
 
 
 @Entity(indices = [Index(value = ["name"], unique = true)], tableName = "timers") //TODO Make a ViewModel
@@ -57,12 +58,12 @@ class MainActivity : AppCompatActivity() {
         val mainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mainBinding.root)
 
-        val db = Room.databaseBuilder(this, MorningBoosterDatabase::class.java, "morning-booster")
-            .build()
         GlobalScope.launch(Dispatchers.Main) {
+            val timersDB = Room.databaseBuilder(this@MainActivity, MorningBoosterDatabase::class.java, TIMERS_DB_NAME)
+                .build()
             var timers = mutableListOf<PractiseTimer>()
             withContext(Dispatchers.IO) {
-                timers = db.practiceTimerDao().getAll()
+                timers = timersDB.practiceTimerDao().getAll()
             }
             Log.d(TAG, "Getting timers from db job completed")
                 if (timers.size != 0) {
@@ -74,7 +75,7 @@ class MainActivity : AppCompatActivity() {
                     timers = initializeDefaultTimers(timers)
                     setTimersView(mainBinding, timers)
                     withContext(Dispatchers.IO) {
-                        db.practiceTimerDao().insertAll(
+                        timersDB.practiceTimerDao().insertAll(
                             timers[0],
                             timers[1],
                             timers[2],

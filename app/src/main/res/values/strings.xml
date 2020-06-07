@@ -12,4 +12,10 @@
         <item quantity="other">%1$d minutes</item>
     </plurals>
     <string name="total_time_label">Total time for practice: </string>
+    <string name="hint_set_time">set time</string>
+    <string name="setting_title_text">Set timers:</string>
+    <string name="enabled_column_title">Enabled</string>
+    <string name="position_column_title">Position</string>
+    <string name="name_column_title">Name</string>
+    <string name="time_column_title">Time</string>
 </resources>

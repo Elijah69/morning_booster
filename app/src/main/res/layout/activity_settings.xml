@@ -6,13 +6,261 @@
     android:layout_height="match_parent"
     tools:context=".SettingsActivity">
 
+
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:id="@+id/setting_titles"
-        android:text="Set timers:" />
+        android:text="@string/setting_title_text"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/enabled_column_title"
+        android:id="@+id/enable_column_title"
+        app:layout_constraintTop_toBottomOf="@+id/setting_titles"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/position_column_title"
+        android:id="@+id/position_column_title"
+        app:layout_constraintTop_toBottomOf="@+id/setting_titles"
+        app:layout_constraintStart_toEndOf="@id/enable_column_title"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/name_column_title"
+        android:id="@+id/name_column_title"
+        app:layout_constraintTop_toBottomOf="@+id/setting_titles"
+        app:layout_constraintStart_toEndOf="@id/position_column_title"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/time_column_title"
+        android:id="@+id/time_column_title"
+        app:layout_constraintTop_toBottomOf="@+id/setting_titles"
+        app:layout_constraintStart_toEndOf="@id/name_column_title"
+        />
+
+    <CheckBox
+        android:layout_width="40sp"
+        android:layout_height="40sp"
+        android:id="@+id/first_timer_checkbox"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enable_column_title"
+        />
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="40sp"
+        android:id="@+id/first_position_spinner"
+        app:layout_constraintStart_toEndOf="@+id/first_timer_checkbox"
+        app:layout_constraintBottom_toBottomOf="@+id/position_column_title"
+        />
+    <TextView
+        app:layout_constraintStart_toEndOf="@+id/first_position_spinner"
+        app:layout_constraintTop_toBottomOf="@+id/name_column_title"
+        android:layout_height="40sp"
+        android:layout_width="wrap_content"
+        android:text="@string/timer_label"
+        android:id="@+id/first_timer_label"
+        />
+    <EditText
+        app:layout_constraintStart_toEndOf="@+id/first_timer_label"
+        app:layout_constraintTop_toBottomOf="@+id/time_column_title"
+        android:layout_height="40sp"
+        android:layout_width="wrap_content"
+        android:id="@+id/first_timer_time"
+        android:inputType="number"
+        android:hint="@string/hint_set_time"
+        android:autofillHints="set time for timer"
+        />
+
+    <CheckBox
+        android:layout_width="40sp"
+        android:layout_height="40sp"
+        android:id="@+id/second_timer_checkbox"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/first_timer_checkbox"
+        />
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="40sp"
+        android:id="@+id/second_position_spinner"
+        app:layout_constraintStart_toEndOf="@+id/second_timer_checkbox"
+        app:layout_constraintBottom_toBottomOf="@+id/first_timer_checkbox"
+        />
+    <TextView
+        app:layout_constraintStart_toEndOf="@+id/second_position_spinner"
+        app:layout_constraintTop_toBottomOf="@+id/first_timer_checkbox"
+        android:layout_height="40sp"
+        android:layout_width="wrap_content"
+        android:text="@string/timer_label"
+        android:id="@+id/second_timer_label"
+        />
+    <EditText
+        app:layout_constraintStart_toEndOf="@+id/second_timer_label"
+        app:layout_constraintTop_toBottomOf="@+id/first_timer_checkbox"
+        android:layout_height="40sp"
+        android:layout_width="wrap_content"
+        android:id="@+id/second_timer_time"
+        android:inputType="number"
+        android:hint="@string/hint_set_time"
+        android:autofillHints="set time for timer"
+        />
+
+    <CheckBox
+        android:layout_width="40sp"
+        android:layout_height="40sp"
+        android:id="@+id/third_timer_checkbox"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/second_timer_checkbox"
+        />
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="40sp"
+        android:id="@+id/third_position_spinner"
+        app:layout_constraintStart_toEndOf="@+id/third_timer_checkbox"
+        app:layout_constraintBottom_toBottomOf="@+id/second_timer_checkbox"
+        />
+    <TextView
+        app:layout_constraintStart_toEndOf="@+id/third_position_spinner"
+        app:layout_constraintTop_toBottomOf="@+id/second_timer_checkbox"
+        android:layout_height="40sp"
+        android:layout_width="wrap_content"
+        android:text="@string/timer_label"
+        android:id="@+id/third_timer_label"
+        />
+    <EditText
+        app:layout_constraintStart_toEndOf="@+id/third_timer_label"
+        app:layout_constraintTop_toBottomOf="@+id/second_timer_checkbox"
+        android:layout_height="40sp"
+        android:layout_width="wrap_content"
+        android:id="@+id/third_timer_time"
+        android:inputType="number"
+        android:hint="@string/hint_set_time"
+        android:autofillHints="set time for timer"
+        />
+
+    <CheckBox
+        android:layout_width="40sp"
+        android:layout_height="40sp"
+        android:id="@+id/fourth_timer_checkbox"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/third_timer_checkbox"
+        />
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="40sp"
+        android:id="@+id/fourth_position_spinner"
+        app:layout_constraintStart_toEndOf="@+id/fourth_timer_checkbox"
+        app:layout_constraintBottom_toBottomOf="@+id/third_timer_checkbox"
+        />
+    <TextView
+        app:layout_constraintStart_toEndOf="@+id/fourth_position_spinner"
+        app:layout_constraintTop_toBottomOf="@+id/third_timer_checkbox"
+        android:layout_height="40sp"
+        android:layout_width="wrap_content"
+        android:text="@string/timer_label"
+        android:id="@+id/fourth_timer_label"
+        />
+    <EditText
+        app:layout_constraintStart_toEndOf="@+id/fourth_timer_label"
+        app:layout_constraintTop_toBottomOf="@+id/third_timer_checkbox"
+        android:layout_height="40sp"
+        android:layout_width="wrap_content"
+        android:id="@+id/fourth_timer_time"
+        android:inputType="number"
+        android:hint="@string/hint_set_time"
+        android:autofillHints="set time for timer"
+        />
+
+    <CheckBox
+        android:layout_width="40sp"
+        android:layout_height="40sp"
+        android:id="@+id/fifth_timer_checkbox"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fourth_timer_checkbox"
+        />
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="40sp"
+        android:id="@+id/fifth_position_spinner"
+        app:layout_constraintStart_toEndOf="@+id/fifth_timer_checkbox"
+        app:layout_constraintBottom_toBottomOf="@+id/fourth_timer_checkbox"
+        />
+    <TextView
+        app:layout_constraintStart_toEndOf="@+id/fifth_position_spinner"
+        app:layout_constraintTop_toBottomOf="@+id/fourth_timer_checkbox"
+        android:layout_height="40sp"
+        android:layout_width="wrap_content"
+        android:text="@string/timer_label"
+        android:id="@+id/fifth_timer_label"
+        />
+    <EditText
+        app:layout_constraintStart_toEndOf="@+id/fifth_timer_label"
+        app:layout_constraintTop_toBottomOf="@+id/fourth_timer_checkbox"
+        android:layout_height="40sp"
+        android:layout_width="wrap_content"
+        android:id="@+id/fifth_timer_time"
+        android:inputType="number"
+        android:hint="@string/hint_set_time"
+        android:autofillHints="set time for timer"
+        />
+
+    <CheckBox
+        android:layout_width="40sp"
+        android:layout_height="40sp"
+        android:id="@+id/sixth_timer_checkbox"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fifth_timer_checkbox"
+        />
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="40sp"
+        android:id="@+id/sixth_position_spinner"
+        app:layout_constraintStart_toEndOf="@+id/sixth_timer_checkbox"
+        app:layout_constraintBottom_toBottomOf="@+id/fifth_timer_checkbox"
+        />
+    <TextView
+        app:layout_constraintStart_toEndOf="@+id/sixth_position_spinner"
+        app:layout_constraintTop_toBottomOf="@+id/fifth_timer_checkbox"
+        android:layout_height="40sp"
+        android:layout_width="wrap_content"
+        android:text="@string/timer_label"
+        android:id="@+id/sixth_timer_label"
+        />
+    <EditText
+        app:layout_constraintStart_toEndOf="@+id/sixth_timer_label"
+        app:layout_constraintTop_toBottomOf="@+id/fifth_timer_checkbox"
+        android:layout_height="40sp"
+        android:layout_width="wrap_content"
+        android:id="@+id/sixth_timer_time"
+        android:inputType="number"
+        android:hint="@string/hint_set_time"
+        android:autofillHints="set time for timer"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/total_time_label"
+        android:text="@string/total_time_label"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sixth_timer_checkbox"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/total_time_timer"
+        app:layout_constraintStart_toEndOf="@id/total_time_label"
+        app:layout_constraintTop_toBottomOf="@+id/sixth_timer_checkbox"/>
 
     <Button
         android:layout_width="wrap_content"
