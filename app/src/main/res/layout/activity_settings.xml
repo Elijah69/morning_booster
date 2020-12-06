@@ -19,10 +19,10 @@
         app:layout_constraintTop_toBottomOf="@id/setting_titles"
         android:id="@+id/settings_table"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
 
-        <TableRow>
+        <TableRow
+            android:id="@+id/table_name_row">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -69,7 +69,8 @@
                 />
         </TableRow>
 
-        <TableRow>
+        <TableRow
+            android:id="@+id/first_timer_row">
             <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -108,7 +109,8 @@
                 />
         </TableRow>
 
-        <TableRow>
+        <TableRow
+            android:id="@+id/second_timer_row">
             <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -147,7 +149,8 @@
                 />
         </TableRow>
 
-        <TableRow>
+        <TableRow
+            android:id="@+id/third_timer_row">
             <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -186,7 +189,8 @@
                 />
         </TableRow>
 
-        <TableRow>
+        <TableRow
+            android:id="@+id/fourth_timer_row">
             <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -225,7 +229,8 @@
                 />
         </TableRow>
 
-        <TableRow>
+        <TableRow
+            android:id="@+id/fifth_timer_row">
             <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -264,7 +269,8 @@
                 />
         </TableRow>
 
-        <TableRow>
+        <TableRow
+            android:id="@+id/sixth_timer_row">
             <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

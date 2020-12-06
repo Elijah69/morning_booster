@@ -23,6 +23,7 @@ class SettingsActivity : AppCompatActivity() {
             withContext(Dispatchers.IO) {
                 timers = timersDB.practiceTimerDao().getAll()
             }
+            val positionArray = arrayOf(1, 2, 3, 4, 5, 6)
 
 
             settingsBinding.saveSettingsButton.setOnClickListener {
