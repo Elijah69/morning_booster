@@ -1,5 +1,6 @@
 *.iml
 .gradle
+.idea
 /local.properties
 /.idea/caches
 /.idea/libraries
@@ -23,3 +24,9 @@
 /.idea/runConfigurations.xml
 /.idea/vcs.xml
 /.idea/codeStyles/
+/.idea/libraries/
+/.idea/modules/
+/.idea/shelf/
+/.idea/gradle.xml~parent of 6c44f25... Updated components versions and added some files to .gitignore
+/.idea/gradle.xml~updated graple to 4.0 from 3.6.3
+/.idea/misc.xml~parent of 6c44f25... Updated components versions and added some files to .gitignore
