@@ -1,2 +1,3 @@
 rootProject.name='Morning booster'
 include ':morningboosterAndroid'
+include ':morningboosterShared'

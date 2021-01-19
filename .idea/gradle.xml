@@ -11,6 +11,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/morningboosterAndroid" />
+            <option value="$PROJECT_DIR$/morningboosterShared" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
