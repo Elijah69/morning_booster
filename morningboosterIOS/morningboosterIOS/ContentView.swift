@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+import morningboosterShared
 
 struct ContentView: View {
+    let greet = Greeting().greeting()
     var body: some View {
-        Text("Hello, world!")
+        Text(greet)
             .padding()
     }
 }

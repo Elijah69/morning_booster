@@ -13,6 +13,8 @@
 		FF7B604C25B6EDC2005C7153 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF7B604B25B6EDC2005C7153 /* Preview Assets.xcassets */; };
 		FF7B605725B6EDC2005C7153 /* morningboosterIOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7B605625B6EDC2005C7153 /* morningboosterIOSTests.swift */; };
 		FF7B606225B6EDC2005C7153 /* morningboosterIOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7B606125B6EDC2005C7153 /* morningboosterIOSUITests.swift */; };
+		FFE1CA4D25B76B9F00040EFF /* morningboosterShared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFE1CA4C25B76B9F00040EFF /* morningboosterShared.framework */; };
+		FFE1CA4E25B76B9F00040EFF /* morningboosterShared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FFE1CA4C25B76B9F00040EFF /* morningboosterShared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,6 +34,20 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		FFE1CA4F25B76B9F00040EFF /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				FFE1CA4E25B76B9F00040EFF /* morningboosterShared.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		FF7B604125B6EDBF005C7153 /* morningboosterIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = morningboosterIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF7B604425B6EDBF005C7153 /* morningboosterIOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = morningboosterIOSApp.swift; sourceTree = "<group>"; };
@@ -45,6 +61,7 @@
 		FF7B605D25B6EDC2005C7153 /* morningboosterIOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = morningboosterIOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF7B606125B6EDC2005C7153 /* morningboosterIOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = morningboosterIOSUITests.swift; sourceTree = "<group>"; };
 		FF7B606325B6EDC2005C7153 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FFE1CA4C25B76B9F00040EFF /* morningboosterShared.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = morningboosterShared.framework; path = "../morningboosterShared/build/xcode-frameworks/morningboosterShared.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FFE1CA4D25B76B9F00040EFF /* morningboosterShared.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,6 +90,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FF708F9925B754AB00EA346B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FFE1CA4C25B76B9F00040EFF /* morningboosterShared.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		FF7B603825B6EDBF005C7153 = {
 			isa = PBXGroup;
 			children = (
@@ -79,6 +105,7 @@
 				FF7B605525B6EDC2005C7153 /* morningboosterIOSTests */,
 				FF7B606025B6EDC2005C7153 /* morningboosterIOSUITests */,
 				FF7B604225B6EDBF005C7153 /* Products */,
+				FF708F9925B754AB00EA346B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -140,6 +167,7 @@
 				FF7B603D25B6EDBF005C7153 /* Sources */,
 				FF7B603E25B6EDBF005C7153 /* Frameworks */,
 				FF7B603F25B6EDBF005C7153 /* Resources */,
+				FFE1CA4F25B76B9F00040EFF /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -420,6 +448,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"morningboosterIOS/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../morningboosterShared/build/xcode-frameworks/";
 				INFOPLIST_FILE = morningboosterIOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -441,6 +470,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"morningboosterIOS/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../morningboosterShared/build/xcode-frameworks/";
 				INFOPLIST_FILE = morningboosterIOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
